@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<style>
+	.titleDiv {
+		margin-left: auto;
+		margin-right: auto;
+		text-align: center;
+		padding-top: 30px;
+	}
+	ul#menu {
+		list-style:none; 
+		margin:0; 
+		padding:0;
+		float:right;
+	}
+	ul#menu li {
+		float:left; 
+		display:block; 
+		margin:0; 
+		padding:0 10px; 
+		border-left:#ccc 
+		solid 1px;
+	} 
+	ul#menu li:first-child {
+		border-left:0
+	}
+	.user_profile {
+		width: 60%;
+		margin-left: auto;
+		margin-right: auto;
+		border-style: solid;
+		border-width: 2px; 
+		padding: 10px 10px 10px 10px;
+	}
+	.review {
+		width: 50%;
+		height: auto;
+		margin-left: auto;
+		margin-right: auto;
+		border-style: solid;
+		border-width: 2px; 
+		padding: 10px 20px 20px 10px;
+	}
+	.review input#submit {
+		float:right;
+	}
+
+	</style>
+</head>
+
+<body>
+	<ul id="menu">
+		<li><a href=#>Login</a></li>
+		<li><a href="home.html">Home</a></li>
+	</ul>
+	<div class="titleDiv">
+		<h1 style="text-align:center">Write a Review</h1>
+	</div>
+	<div class="review">
+		<form action="submitreview.cgi">
+			<p>*Review author:<input type="text" name="author"></p>
+			<p>*Review title:<input type="text" name="title"></p>
+			<p>*University: <select name="university">
+				<option value='0'>Select a university</option>
+				<option value='1'>Universidad de Madrid</option>
+				<option value='2'>University College London (UCL)</option>
+				<option value='3'>University of Queensland (UQ)</option>
+				<option value='4'>Tel Aviv University</option>
+				<option value='5'>University of Oxford</option>
+				<option value='6'>London School of Economics</option>
+			</select></p>
+			<p>*Rating:<select name="rating">
+				<option value='0'>0 stars</option>
+				<option value='1'>1 star</option>	
+				<option value='2'>2 stars</option>
+				<option value='3'>3 stars</option>
+				<option value='4'>4 stars</option>
+				<option value='5'>5 stars</option>
+			</select></p>
+			<p>*Review text:<textarea name="review_text" rows="4" cols="50"></textarea></p>
+			<p>*Upload photos:<input name="photo" type="file"/>
+			<br>
+			<input id="submit" type="submit" name="submit" value="Submit Review">
+		</form>
+	</div>
+</body>
+</html>

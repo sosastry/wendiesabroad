@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Write Review</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+<style>
+h2 {
+text-align:center;
+
+}
+
+.form-control {
+border-radius:0px;
+}
+
+
+</style>
+
+
+</head>
+<body>
+
+<div class="container">
+  <h2>Write a Review</h2>
+  <form role="form" action="submitreview.cgi">
+    <div class="form-group">
+      <label for="author">*Review Author:</label>
+      <input type="name" name="author" class="form-control" id="author">
+    </div>
+    <div class="form-group">
+      <label for="title">*Review title:</label>
+      <input type="title" class="form-control" id="title" name="title">
+    </div>
+    <div class="form-group">
+      <label for="sel1">*Select University:</label>
+      <select class="form-control" id="sel1" name="university"> 
+	<option value='0'>Select a university</option>
+	<option value='1'>Universidad de Madrid</option>
+	<option value='2'>University College London (UCL)</option>
+	<option value='3'>University of Queensland (UQ)</option>
+	<option value='4'>Tel Aviv University</option>
+	<option value='5'>University of Oxford</option>
+	<option value='6'>London School of Economics</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="sel2">*Rating:</label>
+      <select class="form-control" id="sel2" name="rating">
+	<option value='0'>0 stars</option>
+	<option value='1'>1 star</option>	
+	<option value='2'>2 stars</option>
+	<option value='3'>3 stars</option>
+	<option value='4'>4 stars</option>
+	<option value='5'>5 stars</option>
+      </select>
+      </div>
+    <div class="form-group">
+      <label for="review-text">*Review Text:</label>
+      <textarea name="review_text" class="form-control" rows="5" id="review_text"></textarea>
+    </div>
+     <div class="form-group">
+      <label for="photo">*Upload photo:</label>
+      <input type="file" name="photo">
+    </div>
+    <button type="submit" name="submit" value="Submit Review" class="btn btn-default">Submit Review</button>
+  </form>
+</div>
+
+</body>
+</html>

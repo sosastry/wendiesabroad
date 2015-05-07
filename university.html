@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+  .titleDiv {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    padding-top: 30px;
+  } 
+  ul#menu {
+   list-style:none; 
+   margin:0; 
+   padding:0;
+   float:right;
+ }
+ ul#menu li {
+   float:left; 
+   display:block; 
+   margin:0; 
+   padding:0 10px; 
+   border-left:#ccc 
+   solid 1px;
+ } 
+ ul#menu li:first-child {
+   border-left:0
+ }
+ td {                            
+  border: 3px solid black;                               
+  padding: 15px 15px 15px 15px;                                 
+}                        
+table {                       
+  border-spacing: 15px;
+}
+
+.leftSide {
+  float: left;
+  width: 60%;
+  height: 100%
+}
+.rightSide {
+  float: right;
+  width: 40%;
+  height: 100%;
+}
+.main {
+  height: 100%;
+}
+
+</style>
+</head>
+<body>
+	<ul id="menu">
+		<li><a href="login.html">Login</a></li>
+		<li><a href="home.html">Home</a></li>
+	</ul>
+  <div class="titleDiv">
+   <h1 style="text-align:center">University Page</h1>
+ </div>
+
+ <div class="main">
+
+   <div id="leftSide" class="leftSide">
+    <div id="top">
+      <table cols="2" width="100%">
+        <tr>
+          <td valign="top" width="60%" bgcolor="hotpink">
+            <h2>Basic Info</h2> 
+          </td>
+          <td valign="top" width="40%" bgcolor="lightpink">
+            <h2>Photos</h2> 
+          </td>
+        </table>
+      </div>
+      <div id="bottom">
+        <table cols="1" width="100%">
+          <td valign="top" width="100%" bgcolor="deepskyblue">
+            <h2>Reviews</h2>
+          </td>
+        </table>
+      </div>
+    </div>
+
+    <div id"=rightSide" class="rightSide">
+      <table cols="1" width="100%">
+        <td valign="top" width="100%" bgcolor="lightblue">
+          <h2>Wendies</h2>
+        </td>
+      </div>
+
+    </div>
+
+  </body>
+  </html>
