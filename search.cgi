@@ -10,9 +10,10 @@ from cgi_utils_sda import file_contents,print_headers
 # gets the data that the user entered into the form and processes it
 def getSearchQuery():
     form_data=cgi.FieldStorage()
+    results = {}
 
     # checks whether the script has been called using the submit button
-    if (form_data.getvalue('searchQuery')):
+    if (form_data.getvalue('submit')):
       searchQuery = form_data.getfirst('searchQuery')
       searchType = form_data.getfirst('searchby')
       if ((searchQuery is not None) and (searchType is not '0')):
@@ -22,13 +23,13 @@ def getSearchQuery():
           print 'Connection failed'
       else:
         if (searchQuery is None):
-          print 'Please enter a search term <br>'
+          results['results'] = 'Please enter a search query'
+          #print 'Please enter a search term <br>'
         if (searchType =='0'):
-          print 'Please choose a search category'
+          results['results'] = 'Please choose a search category'
     else:
-	results = {}
-	results['results'] = 'Please enter a search query'
-	print main().format(**results)
+	    results['results'] = ''
+	  print main().format(**results)
 
 #searches the database based on a given query and search type
 def searchDatabase(conn,searchQuery,searchType):
