@@ -1,9 +1,9 @@
 .form-control {
-border-radius:0px;
+	border-radius:0px;
 }
 
 .control-label {
-text-align:left;
+	text-align:left;
 }
 
 .col-centered {
@@ -23,3 +23,7 @@ text-align:left;
 .row-centered {
     text-align:center;
 }
+
+/*.container.form-group#contact {
+	text-align: left;
+}*/
