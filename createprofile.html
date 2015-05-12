@@ -7,6 +7,18 @@
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+  <script type="text/javascript">
+        $(document).ready(function(){
+        $('input[type="radio"]').click(function(){
+            if($(this).attr("value")=="yes"){
+                $(".contactinfo").show();
+            }
+            if($(this).attr("value")=="no"){
+                $(".contactinfo").hide();
+            }
+        });
+    });
+  </script>
 
 <link rel="stylesheet" type="text/css" href="createprofile.css"/>
 
@@ -79,19 +91,19 @@
     </div>
     <!--Contact info opt-in-->
     <div class="form-group" id="contact">
-      <label class="control-label col-sm-4" for="contact" style="text-align:left">Are you willing to be contacted by other Wendies who want to study abroad?</label>
+      <label class="control-label col-sm-4" for="contact" style="text-align:left">*Are you willing to be contacted by other Wendies who want to study abroad?</label>
       <div class="col-sm-1">
         <div class="input-group">
           <span class="input-group-addon">
-            <input type="radio">
+            <input name="contact" type="radio" value="yes">
           </span>
-          <label name="contact" class="form-control">Yes</label>
+          <label name="contact" class="form-control" >Yes</label>
         </div>
       </div>
       <div class="col-sm-1 col-sm-offset-1">
         <div class="input-group">
           <span class="input-group-addon">
-            <input type="radio">
+            <input name="contact" type="radio" value="no">
           </span>
           <label name="contact" class="form-control">No</label>
         </div>
