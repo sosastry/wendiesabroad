@@ -25,6 +25,10 @@ def getSearchQuery():
           print 'Please enter a search term <br>'
         if (searchType =='0'):
           print 'Please choose a search category'
+    else:
+	results = {}
+	results['results'] = 'Please enter a search query'
+	print main().format(**results)
 
 #searches the database of the given query
 def searchDatabase(conn,searchQuery,searchType):
