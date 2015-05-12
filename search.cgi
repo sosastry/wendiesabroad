@@ -30,7 +30,7 @@ def getSearchQuery():
 	results['results'] = 'Please enter a search query'
 	print main().format(**results)
 
-#searches the database of the given query
+#searches the database based on a given query and search type
 def searchDatabase(conn,searchQuery,searchType):
     curs = conn.cursor(MySQLdb.cursors.DictCursor)
     searchQuery = '%' + searchQuery + '%'
@@ -40,7 +40,7 @@ def searchDatabase(conn,searchQuery,searchType):
     uniFormat = '<a href="university.cgi?uni={uid}" class="testing">{name}</a><br>'
     peopleFormat = '<a href="userprofile.cgi?pid={pid}" class="testing">{name}</a><br>'
     
-    if searchType == '1':  #country
+    if searchType == '1':  # search by country
       data=(searchQuery,)
       curs.execute('select * from university join country where university.country = country.cid and country.name like %s',data)
       row = curs.fetchone()
@@ -50,7 +50,7 @@ def searchDatabase(conn,searchQuery,searchType):
           while row is not None:
               resultString += uniFormat.format(**row)
               row = curs.fetchone()
-    elif searchType == "2": #university
+    elif searchType == "2": #search by university
       data=(searchQuery,)
       curs.execute('select * from university where name like %s', data)
       row=curs.fetchone()
@@ -60,7 +60,7 @@ def searchDatabase(conn,searchQuery,searchType):
           while row is not None:
               resultString += uniFormat.format(**row)
               row = curs.fetchone()
-    elif searchType == "3": #people
+    elif searchType == "3": #search for a user
         data=(searchQuery,searchQuery,searchQuery,)
         curs.execute('select * from user where name like %s OR major like %s OR activities like %s', data)
         row=curs.fetchone()
