@@ -27,3 +27,8 @@
 .contactinfo {
 	display:none;
 }
+
+#submitbutton {
+	margin-bottom: 40px;
+	margin-left: 68%;
+}
