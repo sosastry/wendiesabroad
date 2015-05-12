@@ -7,7 +7,7 @@ import MySQLdb
 import cgi_utils_sda
 from cgi_utils_sda import file_contents,print_headers
 
-
+# we will add login capabilities!
 # gets the data that the user entered into the form and processes it
 def submitUser():
     form_data=cgi.FieldStorage()
