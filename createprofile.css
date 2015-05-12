@@ -1,0 +1,25 @@
+.form-control {
+border-radius:0px;
+}
+
+.control-label {
+text-align:left;
+}
+
+.col-centered {
+    display:inline-block;
+    float:none;
+    /* reset the text-align */
+    text-align:center;
+    /* inline-block space fix */
+    margin-right:40px;
+}
+
+.center_div {
+    margin: 0 auto;
+    width:100% /* value of your choice which suits your alignment */
+}
+
+.row-centered {
+    text-align:center;
+}

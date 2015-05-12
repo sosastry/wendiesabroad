@@ -1,0 +1,31 @@
+
+.banner {
+  height: 300px;
+  background-position: center;
+  background-image: linear-gradient(rgba(255,255,255,0.6),rgba(255,255,255,0.6)), url("cambridge.jpg");
+  text-align: center;
+}
+
+.bannerName {
+  width: 100%;
+  line-height: 6;
+  font-size: 40px;
+}
+
+.testing {
+   background-color:#ededed;
+}
+
+.info-box {
+  margin-top: 10px;
+  margin-right: 10px;
+  margin-left: 20px;
+/*  background-color: white;*/
+  color: black;
+  width:30%;
+}
+
+.reviews {
+margin-left:20px;
+}
+

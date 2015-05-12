@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>{name}</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+   <link rel="stylesheet" href="uni.css">
+
+</head>
+
+<body>
+
+<nav class="navbar navbar-inverse">
+<div class="container-fluid">
+  <div class="navbar-header">
+    <a class="navbar-brand" href="#">Wendies Abroad </a>
+  </div>
+  <div>
+    <ul class="nav navbar-nav navbar-right">
+      <li><a href="createprofile.html"><span class="glyphicon glyphicon-log-in"></span> Login </a></li>
+      <li><a href="home.html"><span class="glyphicon glyphicon-home"></span> Home </a></li>
+    </ul>
+  </div>
+</div>
+</nav>
+
+<div class="container-fluid">
+
+<div class="row banner">
+  <div class="col-sm-8 bannerName">
+  <div>{name}</div>
+  </div>
+</div>
+
+  <div class="row testing">
+    <div class="col-sm-4 info-box">
+        <p style="font-size:20px;"><b>Basic Info</b></p>
+        <p><b>Location:</b> {city}, {countryName}</p>
+        <p><b>Size:</b> {size}</p>
+        <p><b>Language:</b> {language}</p>
+        <p><b>Website: </b> website </p>
+    </div>
+    
+    <div class="col-sm-4 info-box">
+      <p style="font-size:20px"><b>Wendies of {name}</b></p>
+      {peopleString}
+<!--
+      <a href="userprofile.cgi?pid=3">Sonali Sastry</a> <br>
+      <a href="userprofile.cgi?pid=2">Tali Marcus </a> <br>
+-->
+    
+    </div>
+    <div class="col-sm-4 info-box" style="font-size:20px"><b>Photos</b></div>
+  </div>
+  
+  <div class="row">
+    <div class="col-sm-8 reviews">
+  <h2>Reviews for {name}: <br></h2>
+      {resultString}
+  </div>
+  </div>
+
+</div>
+
+
+
+
+</body>
+</html>

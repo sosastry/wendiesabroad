@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Write Review</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<link rel="stylesheet" type="text/css" href="createprofile.css">
+
+</head>
+<body>
+
+<nav class="navbar navbar-inverse">
+<div class="container-fluid">
+  <div class="navbar-header">
+    <a class="navbar-brand" href="home.html">Wendies Abroad </a>
+  </div>
+  <div>
+    <ul class="nav navbar-nav navbar-right">
+      <li><a href="createprofile.html"><span class="glyphicon glyphicon-log-in"></span> Login </a></li>
+      <li><a href="home.html"><span class="glyphicon glyphicon-home"></span> Home </a></li>
+    </ul>
+  </div>
+</div>
+</nav>
+
+
+<div class="container row-centered col-md-8 col-md-offset-2">
+  <h2>Write a Review</h2>
+  <br>
+  <form role="form" class="form-horizontal" action="submitreview.cgi">
+    <div class="form-group">
+      <label class="control-label col-sm-3" for="author">*Review Author:</label>
+     <div class="col-sm-9">
+      <!--<input type="name" name="author" class="form-control" id="author">-->
+       <select class="form-control" id="sel1" name="author"> 
+	{users}
+      </select> 
+     </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-3" for="title">*Review title:</label>
+      <div class="col-sm-9">
+	<input type="title" class="form-control" id="title" name="title">
+      </div>
+      </div>
+    <div class="form-group">
+      <label class="control-label col-sm-3" for="sel1">*Select University:</label>
+      <div class="col-sm-9">
+      <select class="form-control" id="sel1" name="university"> 
+	<option value='0'>Select a university</option>
+	<option value='1'>Universidad de Madrid</option>
+	<option value='2'>University College London (UCL)</option>
+	<option value='3'>University of Queensland (UQ)</option>
+	<option value='4'>Tel Aviv University</option>
+	<option value='5'>University of Oxford</option>
+	<option value='6'>London School of Economics</option>
+      </select>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label col-sm-3" for="sel2">*Rating:</label>
+      <div class="col-sm-9">
+      <select class="form-control" id="sel2" name="rating">
+	<option value='0'>0 stars</option>
+	<option value='1'>1 star</option>	
+	<option value='2'>2 stars</option>
+	<option value='3'>3 stars</option>
+	<option value='4'>4 stars</option>
+	<option value='5'>5 stars</option>
+      </select>
+      </div>
+      </div>
+    <div class="form-group">
+      <label class="control-label col-sm-3" for="review-text">*Review Text:</label>
+      <div class="col-sm-9">
+      <textarea name="review_text" class="form-control" rows="5" id="review_text"></textarea>
+      </div>
+    </div>
+     <div class="form-group">
+      <label class="control-label col-sm-3" for="photo">*Upload photo:</label>
+      <div class="col-sm-9">
+      <input type="file" class="form-control" name="photo">
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-sm-offset-3 col-sm-9">
+     <button type="submit" name="submit" value="Submit Review" class="btn btn-default">Submit Review</button>
+     </div>
+    </div>
+  </form>
+</div>
+
+</body>
+</html>
