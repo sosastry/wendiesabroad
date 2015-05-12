@@ -24,6 +24,6 @@
     text-align:center;
 }
 
-/*.container.form-group#contact {
-	text-align: left;
-}*/
+.contactinfo {
+	display:none;
+}
