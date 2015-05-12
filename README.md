@@ -8,3 +8,6 @@ Hi Tali is pushing!
 Tali is pushing again, woohoo!
 
 Sonali is pushing again!!
+
+I am making a change without pulling Sonali's changes :/
+>>>>>>> Pushing a change without pulling first
