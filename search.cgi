@@ -38,6 +38,7 @@ def searchDatabase(conn,searchQuery,searchType):
     result = {}
     resultString = ""
     uniFormat = '<a href="university.cgi?uni={uid}" class="testing">{name}</a><br>'
+    peopleFormat = '<a href="userprofile.cgi?pid={pid}" class="testing">{name}</a><br>'
     
     if searchType == '1':  #country
       data=(searchQuery,)
@@ -67,7 +68,7 @@ def searchDatabase(conn,searchQuery,searchType):
             resultString += "Your search did not return any results."
         else:
             while row is not None:
-                resultString  += ('<div class="testing" value={pid}>{name}</div>').format(**row)
+                resultString  += peopleFormat.format(**row)
                 row = curs.fetchone()
     result['results'] = resultString 
     print main().format(**result)
