@@ -28,9 +28,9 @@ def getSearchQuery():
         if (searchType =='0'):
           results['results'] = 'Please choose a search category'
     else:
-	    results['results'] = ''
-	  print main().format(**results)
-
+	results['results'] = ''
+    print main().format(**results)
+    	
 #searches the database based on a given query and search type
 def searchDatabase(conn,searchQuery,searchType):
     curs = conn.cursor(MySQLdb.cursors.DictCursor)
