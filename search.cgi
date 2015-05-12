@@ -10,9 +10,10 @@ from cgi_utils_sda import file_contents,print_headers
 # gets the data that the user entered into the form and processes it
 def getSearchQuery():
     form_data=cgi.FieldStorage()
+    results = {}
 
     # checks whether the script has been called using the submit button
-    if (form_data.getvalue('searchQuery')):
+    if (form_data.getvalue('submit')):
       searchQuery = form_data.getfirst('searchQuery')
       searchType = form_data.getfirst('searchby')
       if ((searchQuery is not None) and (searchType is not '0')):
@@ -22,11 +23,15 @@ def getSearchQuery():
           print 'Connection failed'
       else:
         if (searchQuery is None):
-          print 'Please enter a search term <br>'
+          results['results'] = 'Please enter a search query'
         if (searchType =='0'):
-          print 'Please choose a search category'
-
-#searches the database of the given query
+          results['results'] = 'Please choose a search category'
+	print main().format(**results)
+    else:
+	results['results'] = ''
+    	print main().format(**results)
+    	
+#searches the database based on a given query and search type
 def searchDatabase(conn,searchQuery,searchType):
     curs = conn.cursor(MySQLdb.cursors.DictCursor)
     searchQuery = '%' + searchQuery + '%'
@@ -34,8 +39,9 @@ def searchDatabase(conn,searchQuery,searchType):
     result = {}
     resultString = ""
     uniFormat = '<a href="university.cgi?uni={uid}" class="testing">{name}</a><br>'
+    peopleFormat = '<a href="userprofile.cgi?pid={pid}" class="testing">{name}</a><br>'
     
-    if searchType == '1':  #country
+    if searchType == '1':  # search by country
       data=(searchQuery,)
       curs.execute('select * from university join country where university.country = country.cid and country.name like %s',data)
       row = curs.fetchone()
@@ -45,7 +51,7 @@ def searchDatabase(conn,searchQuery,searchType):
           while row is not None:
               resultString += uniFormat.format(**row)
               row = curs.fetchone()
-    elif searchType == "2": #university
+    elif searchType == "2": #search by university
       data=(searchQuery,)
       curs.execute('select * from university where name like %s', data)
       row=curs.fetchone()
@@ -55,7 +61,7 @@ def searchDatabase(conn,searchQuery,searchType):
           while row is not None:
               resultString += uniFormat.format(**row)
               row = curs.fetchone()
-    elif searchType == "3": #people
+    elif searchType == "3": #search for a user
         data=(searchQuery,searchQuery,searchQuery,)
         curs.execute('select * from user where name like %s OR major like %s OR activities like %s', data)
         row=curs.fetchone()
@@ -63,7 +69,7 @@ def searchDatabase(conn,searchQuery,searchType):
             resultString += "Your search did not return any results."
         else:
             while row is not None:
-                resultString  += ('<div class="testing" value={pid}>{name}</div>').format(**row)
+                resultString  += peopleFormat.format(**row)
                 row = curs.fetchone()
     result['results'] = resultString 
     print main().format(**result)
