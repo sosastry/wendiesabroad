@@ -5,12 +5,12 @@ import cgitb; cgitb.enable()
 import MySQLdb
 import connSetup
 import cgi_utils_sda
+import imageUpload
 from cgi_utils_sda import file_contents,print_headers
 
 # gets the data that the user entered into the form and processes it
 def submitReview():
     form_data=cgi.FieldStorage()
-    print form_data
     # checks whether the script has been called using the submit button
     if (form_data.getvalue('submit')):
       reviewData = []
@@ -22,8 +22,14 @@ def submitReview():
       reviewData.append(form_data.getfirst('photo'))
       reviewData.append(form_data.getvalue('author'))
 
+      fileitem = form_data['photo']
+      print fileitem
+      #filename= fileitem.filename
+      # file=  fileitem.file
+
       if (reviewComplete(reviewData)): #confirms that all fields are filled out
-        insertReview(connSetup.connect(connSetup.dsn),reviewData)
+          insertReview(connSetup.connect(connSetup.dsn),reviewData)
+          imageUpload.process_file_upload(reviewData[5],fileitem.filename,fileitem.file)
       else:
         print '<p style="color:red">Please fill out all fields.</p>'
 
