@@ -8,6 +8,7 @@ import cgi_utils_sda
 from cgi_utils_sda import file_contents,print_headers
 
 # gets the data that the user entered into the form and processes it
+# searches the database based on search type
 def getSearchQuery():
     form_data=cgi.FieldStorage()
     results = {}
