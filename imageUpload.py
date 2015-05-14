@@ -9,8 +9,8 @@ import MySQLdb
 import connSetup
 import cgi_utils_sda
 
-DEST_DIR = '/home/wendiesabroad/public_html'
-DEST_URL = '/~wabroad/images/'
+DEST_DIR = '/students/wabroad/public_html/cgi-bin/wendiesabroad/images/' #pwd
+DEST_URL = '/~wabroad/cgi-bin/wendiesabroad/images/'
 IN_DB    = False                # false means store in dest_dir
 MAX_FILE_SIZE = 2000000          # 2 MB
 
@@ -68,8 +68,9 @@ ON DUPLICATE KEY UPDATE pic=%s
                 str(rows_mod))
     return 'Successfully uploaded picture data for nm='+str(nm)
 
-def store_data_in_filesystem_optimistic(pid,client_filename,file_data):
+def store_data_in_filesystem_optimistic(pid,client_filename,file_data,rid):
     '''Stores data in the filesystem as nm.jpg without checking for errors'''
+
     dest_file = DEST_DIR + str(pid) + '.jpg'
     stream = open(dest_file,'wb')
     stream.write(file_data)
@@ -78,25 +79,24 @@ def store_data_in_filesystem_optimistic(pid,client_filename,file_data):
     ## inserts or updates picture blob for this actor
     url = DEST_URL + str(pid) + '.jpg'
 
-    cursor = cursor()
+    curs = cursor()
 
-    # CHANGE to update review entry
-    rows_mod = cursor.execute('''
-INSERT INTO review(photo) VALUES (%s,%s)
-ON DUPLICATE KEY UPDATE url=%s
-''',
-                              (nm,url,url))
+    file_name = str(pid) + '.jpg'
+    data = (file_name,rid,)
+
+    rows_mod = curs.execute('UPDATE review SET photo=%s WHERE rid=%s', data)
     return ('''
 The picture file {fromfile} was uploaded successfully as {tofile}
 <a href="{url}"><img src="{url}"></a> '''.format(fromfile=client_filename,
                                            tofile=client_filename,
                                                  url=url))
 
-def store_data_in_filesystem(pid,client_filename,file_data):
+def store_data_in_filesystem(pid,client_filename,file_data,rid):
     '''Stores data in the filesystem as nm.jpg in an exception handler'''
     dest_file = DEST_DIR + str(pid) + '.jpg'
+    print 'dest_file : ', dest_file
     try:
-        return store_data_in_filesystem_optimistic(pid,client_filename,file_data)
+        return store_data_in_filesystem_optimistic(pid,client_filename,file_data,rid)
     except Exception as e:
         return 'Failure to create output file %s: %s' % (dest_file,e)
     
@@ -137,7 +137,8 @@ ON DUPLICATE KEY UPDATE url=%s
             (client_filename,dest_file,url))
 
 
-def process_file_upload(authorid,client_filename,local_file):
+def process_file_upload(authorid,client_filename,local_file,rid):
+    print 'hello1'
     ## Test if the file was uploaded
     if not client_filename:
         return 'No file uploaded (yet)'
@@ -148,7 +149,4 @@ def process_file_upload(authorid,client_filename,local_file):
         return 'Uploaded file is too big: '+str(len(file_data))
 
     ## Get the pid (authorid), which we will either use as a DB key or a filename        
-    if IN_DB:
-        return store_data_in_database(authorid,client_filename,file_data)
-    else:
-        return store_data_in_filesystem(authorid,client_filename,file_data)
+    return store_data_in_filesystem(authorid,client_filename,file_data,rid)

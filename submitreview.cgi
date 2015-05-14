@@ -23,13 +23,14 @@ def submitReview():
       reviewData.append(form_data.getvalue('author'))
 
       fileitem = form_data['photo']
-      print fileitem
-      #filename= fileitem.filename
-      # file=  fileitem.file
+      #print "fileitem is ", fileitem
+      #print "filename is ", fileitem.filename
+      #print "file is ", fileitem.file
 
       if (reviewComplete(reviewData)): #confirms that all fields are filled out
-          insertReview(connSetup.connect(connSetup.dsn),reviewData)
-          imageUpload.process_file_upload(reviewData[5],fileitem.filename,fileitem.file)
+          rid = insertReview(connSetup.connect(connSetup.dsn),reviewData)
+          imageUpload.process_file_upload(reviewData[5],fileitem.filename,fileitem.file,rid)
+          print "Successfully inserted review with title: " + reviewData[0]
       else:
         print '<p style="color:red">Please fill out all fields.</p>'
 
@@ -38,7 +39,12 @@ def insertReview(conn,reviewData):
   curs = conn.cursor(MySQLdb.cursors.DictCursor)
   data= (reviewData[5],reviewData[1],reviewData[5],reviewData[0],reviewData[3],reviewData[2],)
   curs.execute('insert into review(pid,uid,name,title,reviewText,rating) values (%s,%s,%s,%s,%s,%s)',data)
-  print "Successfully inserted review with title: " + reviewData[0]
+
+  curs.execute('select last_insert_id()')
+  rid = curs.fetchone()['last_insert_id()']
+  print 'insert review row id: ',rid 
+
+  return rid
 
 # tests whether user has entered in all fields in a review
 def reviewComplete(list):
