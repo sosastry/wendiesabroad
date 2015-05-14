@@ -71,48 +71,37 @@ ON DUPLICATE KEY UPDATE pic=%s
 
 # generates the destination file and url strings based on which type of photo is
 # being uploaded (review photo, profile picture or cover photo)
-def getDestFile(callFrom):
+def getDestFile(callFrom, pid, rid):
     locations = {}
-
-    print "call From is : ",callFrom
     
     if (callFrom == 'review'):
         dirString = 'reviews/' + str(rid) + '-' + str(pid) + '-1.jpg'
-        locations[col_name] = 'photo'
-        locations[row_name] = 'rid'
-        locations[row_id] = rid
-        locations[database] = 'review'
+        locations['row_id'] = rid
+        locations['query'] = "UPDATE review SET photo=%s WHERE rid=%s"
     elif (callFrom == 'cover'):
         dirString = 'users/' + str(pid) + '-cov.jpg'
-        locations[col_name] = 'cover'
-        locations[row_name] = 'pid'
-        locations[row_id] = pid
-        locations[database] = 'user'
+        locations['row_id'] = pid
+        locations['query'] = "UPDATE user SET cover=%s WHERE pid=%s"
     else:  #profile picture
         dirString = 'users/' + str(pid) + '-prof.jpg'
+        locations['row_id'] = pid
+        locations['query'] = "UPDATE user SET profPic=%s WHERE pid=%s"
 
-        locations[col_name] = 'profPic'
-        locations[row_name] = 'pid'
-        locations[row_id] = pid
+    locations['dest_file'] = DEST_DIR + dirString
+    locations['dest_url'] = DEST_URL + dirString
+    locations['dirString'] = dirString
 
-        locations[database] = 'user'
-
-    locations[dest_file] = DEST_DIR + dirString
-    locations[dest_url] = DEST_URL + dirString
-    locations[dirString] = dirStringx
+    print locations
 
     return locations
 
 def store_data_in_filesystem_optimistic(pid,client_filename,file_data,rid, callFrom):
     '''Stores data in the filesystem as nm.jpg without checking for errors'''
 
-    print "HELLO WORLD"
-
     locations = getDestFile(callFrom, pid, rid)
 
-    dest_file = locations[dest_file]
+    dest_file = locations['dest_file']
 
-    #dest_file = NEW_DIR + str(pid) + '.jpg'
     stream = open(dest_file,'wb')
     stream.write(file_data)
     os.chmod(dest_file,0644)
@@ -120,18 +109,17 @@ def store_data_in_filesystem_optimistic(pid,client_filename,file_data,rid, callF
     ## inserts or updates picture blob for this actor
     #url = DEST_URL + str(pid) + '.jpg'
 
-    url = locations[dest_url]
-    table = locations[database]
-    col_name = locations[col_name] #column to insert picture into (i.e profPic, cover)
-    row_name = locations[row_name]
-    row_id = locations[row_id]
+    url = locations['dest_url']
+    row_id = locations['row_id']
+    query = locations ['query']
 
     curs = cursor()
 
-    file_name = locations[dirString]
-    data = (table,col_name,file_name,row_name,row_id)
+    file_name = locations['dirString']
+    data = (file_name,row_id,)
 
-    rows_mod = curs.execute('UPDATE %s SET %s=%s WHERE %s=%s', data)
+    rows_mod = curs.execute(query, data)
+    
     return ('''
 The picture file {fromfile} was uploaded successfully as {tofile}
 <a href="{url}"><img src="{url}"></a> '''.format(fromfile=client_filename,
@@ -143,7 +131,7 @@ def store_data_in_filesystem(pid,client_filename,file_data,rid, callFrom):
     dest_file = DEST_DIR + str(pid) + '.jpg'
     #print 'dest_file : ', dest_file
     try:
-        return store_data_in_filesystem_optimistic(pid,client_filename,file_data,rid)
+        return store_data_in_filesystem_optimistic(pid,client_filename,file_data,rid,callFrom)
     except Exception as e:
         return 'Failure to create output file %s: %s' % (dest_file,e)
     
@@ -185,7 +173,6 @@ ON DUPLICATE KEY UPDATE url=%s
 
 
 def process_file_upload(authorid,client_filename,local_file,rid,callFrom):
-    print 'hello1'
     ## Test if the file was uploaded
     if not client_filename:
         return 'No file uploaded (yet)'
