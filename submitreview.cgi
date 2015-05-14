@@ -23,15 +23,13 @@ def submitReview():
       reviewData.append(form_data.getvalue('author'))
 
       fileitem = form_data['photo']
-      #print "fileitem is ", fileitem
-      #print "filename is ", fileitem.filename
-      #print "file is ", fileitem.file
 
       if (reviewComplete(reviewData)): #confirms that all fields are filled out
           rid = insertReview(connSetup.connect(connSetup.dsn),reviewData)
-          imageUpload.process_file_upload(reviewData[5],fileitem.filename,fileitem.file,rid)
+          imageUpload.process_file_upload(reviewData[5],fileitem.filename,fileitem.file,rid,'review')
           print "Successfully inserted review with title: " + reviewData[0]
       else:
+          #move to the bottom of the page
         print '<p style="color:red">Please fill out all fields.</p>'
 
 # inserts data into review table
