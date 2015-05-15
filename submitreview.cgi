@@ -6,6 +6,7 @@ import MySQLdb
 import connSetup
 import cgi_utils_sda
 import imageUpload
+from subprocess import call
 from cgi_utils_sda import file_contents,print_headers
 
 # gets the data that the user entered into the form and processes it
@@ -23,6 +24,11 @@ def submitReview():
       reviewData.append(form_data.getvalue('author'))
 
       fileitem = form_data['photo']
+
+      print "YOASLFNKLSKNF"
+      imgString = "/images/1.jpg"
+      print call(["file","--mime-type",imgString])
+      #print call(["file","--mime-type",fileitem.filename])
 
       if (reviewComplete(reviewData)): #confirms that all fields are filled out
           rid = insertReview(connSetup.connect(connSetup.dsn),reviewData)

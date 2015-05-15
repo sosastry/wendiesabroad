@@ -2,9 +2,21 @@
 .banner {
   height: 300px;
   background-position: center;
-  background-image: linear-gradient(rgba(255,255,255,0.6),rgba(255,255,255,0.6)), url("userimg.jpg");
+/*background-image: linear-gradient(rgba(255,255,255,0.6),rgba(255,255,255,0.6)), url("userimg.jpg");*/
+  background-repeat: no-repeat;
   text-align: center;
 }
+
+.propic {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    box-shadow: 0 0 8px rgba(0, 0, 0, .8);
+    z-index: 10;
+    background-position: center;
+    margin-left: 85%;
+    margin-top: 10%;
+    }
 
 .bannerName {
   width: 100%;

@@ -23,13 +23,6 @@ def getUserInfo():
         
         curs.execute('select * from user where pid=%s',data)
         row = curs.fetchone()
-    	# cid = row.get('country')
-
-    	# data = (cid,)
-    	# curs.execute('select name from country where cid=%s',data)
-    	# row2 = curs.fetchone()
-
-    	# row['countryName'] = row2.get('name')
 
 	# MAKE CODE MORE MODULAR (ANOTHER FUNCTION)
         userReviews=[]

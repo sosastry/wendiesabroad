@@ -43,7 +43,7 @@ def getUniInfo():
             wendiesList.append(peopleRow)
             peopleRow = curs.fetchone()
 
-        personFormat = "{name}<br>"
+        personFormat = "<a href='userprofile.cgi?pid={pid}'>{name}</a><br>"
         peopleString = ""
 
         for r in wendiesList:

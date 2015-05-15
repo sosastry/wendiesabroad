@@ -5,6 +5,7 @@ import sys
 import cgi
 import re
 import MySQLdb
+from subprocess import call
 
 import connSetup
 import cgi_utils_sda
@@ -89,7 +90,7 @@ def getDestFile(callFrom, pid, rid):
 
     locations['dest_file'] = DEST_DIR + dirString
     locations['dest_url'] = DEST_URL + dirString
-    locations['dirString'] = dirString
+    locations['dirString'] = 'images/' + dirString
 
     print locations
 
@@ -173,6 +174,7 @@ ON DUPLICATE KEY UPDATE url=%s
 
 
 def process_file_upload(authorid,client_filename,local_file,rid,callFrom):
+    
     ## Test if the file was uploaded
     if not client_filename:
         return 'No file uploaded (yet)'
