@@ -76,10 +76,10 @@ def getUsers():
     results['users'] = resultString
     return results
 
+
 # prints out the html template
 def main():
     tmpl =  file_contents('writereview.html')
-    
     #get list of users in user table
     users = getUsers()
     print tmpl.format(**users)
@@ -88,6 +88,6 @@ def main():
 if __name__== '__main__':
    print "Content-Type: text/html\n"
    submitReview()
-   print main()
+   main()
 
 
