@@ -14,6 +14,7 @@ import sys
 import cgi
 import cgitb; cgitb.enable
 import connSetup
+import session
  
 import Cookie
 import cgi_utils_sda
@@ -45,6 +46,7 @@ def validateUser():
 
         if validPassword(username,pword):
             print "Success"
+            session.main()
     else:
         print "Please enter both username and password"
 
@@ -58,13 +60,13 @@ def validPassword(username,password):
     
     if row is None:
         print "Please enter valid username"
-        return false
+        return False
     
     databasePwd = row[password]
     
     if password = database.password:
         print 'Thanks! Hello world!'
-        return true
+        return True
     else:
         print "incorrect password"
 
