@@ -8,7 +8,6 @@
 # wrote the functions to mimic PHP's session functions.
 
 import cgi
-<<<<<<< HEAD
 import cgitb; cgitb.enable
 import connSetup
 import session
@@ -28,6 +27,7 @@ def validateUser():
 
         if validPassword(username,pword):
             print "Success"
+	    print "Sonali"
             session.main()
     else:
         print "Please enter both username and password"
