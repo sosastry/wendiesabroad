@@ -28,9 +28,9 @@ def validateUser():
         pword = form_data.getfirst('password')
         username = form_data.getfirst('username')
 	
-
         if validPassword(username,pword):
-            session.main()
+            # print 'true'
+            session.main(2) #need to grab pid
     else:
         print "Please enter both username and password"
 
@@ -42,6 +42,7 @@ def validPassword(username,password):
     curs.execute('select * from creds where username=%s',data)
     row = curs.fetchone()
     
+    #retrieve the salt from the database instead
     salt = uuid.uuid4().hex
     hashed_password=hashlib.sha512(password+salt).hexdigest()
     if row is None:
@@ -59,8 +60,8 @@ def validPassword(username,password):
         print "incorrect password"
  
 if __name__ == '__main__':
+    validateUser()
     print "Content-Type: text/html\n"
     tmpl = file_contents('home.html')
     print tmpl
-    validateUser()
     
