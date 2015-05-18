@@ -8,9 +8,11 @@
 # wrote the functions to mimic PHP's session functions.
 
 import cgi
-import cgitb; cgitb.enable()
-import MySQLdb
-import connSetup 
+import cgitb; cgitb.enable
+import connSetup
+import session
+ 
+import Cookie
 import cgi_utils_sda
 from cgi_utils_sda import file_contents,print_headers
  
@@ -25,6 +27,8 @@ def validateUser():
 
         if validPassword(username,pword):
             print "Success"
+	    print "Sonali"
+            session.main()
     else:
         print "Please enter both username and password"
 
