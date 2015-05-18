@@ -129,16 +129,19 @@ It takes as an argument the directory to read session data from.'''
     # Set a cookie and print that header
     sesscookie = Cookie.SimpleCookie()
     setCookie(sesscookie,PY_CGI_SESS_ID,sessid)
-    print(sesscookie)
+    print(sesscookie)   # have to do this to start/continue the session
+    data = {}
     # check to see if there's any session data
     if not os.path.isfile(dir+sessid):
-        return {}
+        data['loggedIn']=False
+        data['sessid']=sessid
+        return data
     output = open(dir+sessid,'r+')
     # session already exists, so load saved data
     # rb for read binary
-    input = open(dir+sessid,'r')
-    sess_data = pickle.load(input)
-    input.close()
+    # input = open(dir+sessid,'r')
+    sess_data = pickle.load(output)
+    output.close()
     if isinstance(sess_data,dict):
         return sess_data
     else:
