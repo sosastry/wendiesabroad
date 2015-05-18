@@ -17,12 +17,20 @@
 <nav class="navbar navbar-inverse">
 <div class="container-fluid">
   <div class="navbar-header">
-    <a class="navbar-brand" href="#">Wendies Abroad </a>
+    <a class="navbar-brand" href="home.cgi">Wendies Abroad </a>
   </div>
+
+    <div>
+      <ul class="nav navbar-nav">
+        <li><a href="createProfile.cgi">Create Profile</a></li>
+        <li class="active"><a href="#">Search</a></li> 
+      </ul>
+    </div>
   <div>
     <ul class="nav navbar-nav navbar-right">
       <li><a href="createprofile.html"><span class="glyphicon glyphicon-log-in"></span> Login </a></li>
-      <li><a href="home.html"><span class="glyphicon glyphicon-home"></span> Home </a></li>
+      <li><a href="home.cgi"><span class="glyphicon glyphicon-home"></span> Home </a></li>
+      <li><a href="logout.cgi"><span class="glyphicon glyphicon-home"></span> Logout </a></li>
     </ul>
   </div>
 </div>
@@ -44,15 +52,20 @@
             </select>
           </div>
         </div>
-        <div class="form-group">
+     <!--   <div class="form-group">
 	  <input type="text" class="form-control col-sm-4" name="searchQuery" placeholder="Enter search result">
 	</div>
-	<button type="submit" name="submit" value="submit" class="btn btn-default">Go</button>
-	
+	<button type="submit" name="submit" value="submit" class="btn btn-default">Go</button>  -->
+	    <div class="input-group">
+  <input type="text" class="form-control col-sm-4" name="searchQuery" placeholder="Enter search result">
+  <span class="input-group-btn">
+  <button name="submit" value="submit" class="btn btn-default">Go</button> 
+  </span>
+  </div>
       </form>
       
     </div>
-    <div class="col-sm-5 col-sm-offset-1 col-centered">Results: <br></div>
+    <div class="col-sm-5 col-sm-offset-1 col-centered">Results: <br> {results}</div>
     
   </div>
 </div>

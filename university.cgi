@@ -6,6 +6,7 @@ import MySQLdb
 import connSetup
 import cgi_utils_sda
 from cgi_utils_sda import file_contents,print_headers
+import session
 
 # prints out the html template
 def main():
@@ -76,5 +77,5 @@ def getUniInfo():
 # main method to perform data processing and print html template
 if __name__== '__main__':
    print "Content-Type: text/html\n"
-   # print main()
+   session.checkExistingSession()
    getUniInfo()

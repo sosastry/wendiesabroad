@@ -78,7 +78,7 @@ def searchDatabase(conn,searchQuery,searchType):
 
 # prints out the html template
 def main():
-    tmpl =  file_contents('searchresults.html')
+    tmpl =  file_contents('search.html')
     return tmpl
 
 # main method to perform data processing and print html template
