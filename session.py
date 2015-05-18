@@ -18,12 +18,10 @@ import Cookie
 import cgi_utils_sda
 
 def main():
-    print "HELLO"
     my_sess_dir = 'session/'
     #print 'Content-type: text/html'
     sess_data = cgi_utils_sda.session_start(my_sess_dir)
 
-    print "HELLO!!!!!!!!!"
     print sess_data
  
     if 'pid' in sess_data:
@@ -35,8 +33,6 @@ def main():
     if 'submit' in form_data:
         action=form_data.getfirst('submit')
         
-    # Whole response
-
  
 if __name__ == '__main__':
     main()

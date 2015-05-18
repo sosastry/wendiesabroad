@@ -11,6 +11,9 @@ import cgi
 import cgitb; cgitb.enable
 import connSetup
 import session
+import MySQLdb
+import hashlib
+import uuid
  
 import Cookie
 import cgi_utils_sda
@@ -24,10 +27,9 @@ def validateUser():
     if ('username' in form_data) and ('password' in form_data):
         pword = form_data.getfirst('password')
         username = form_data.getfirst('username')
+	
 
         if validPassword(username,pword):
-            print "Success"
-	    print "Sonali"
             session.main()
     else:
         print "Please enter both username and password"
@@ -40,13 +42,17 @@ def validPassword(username,password):
     curs.execute('select * from creds where username=%s',data)
     row = curs.fetchone()
     
+    salt = uuid.uuid4().hex
+    hashed_password=hashlib.sha512(password+salt).hexdigest()
     if row is None:
         print "Please enter valid username"
         return False
     
     databasePwd = row['password']
+
+    databasePwd = hashlib.sha512(databasePwd+salt).hexdigest()
     
-    if (password == databasePwd):
+    if (hashed_password == databasePwd):
         print 'Thanks! Hello world!'
         return True
     else:
