@@ -26,27 +26,47 @@
 </div>
 </nav>
 
-<div class="container-fluid page-content">
-  <h1>Wendies Abroad</h1>
-  <p>A study abroad network for students at Wellesley College</p>
-  <div class="row row-centered">
-    <div class="col-sm-4 col-centered">
-      <p>Search the database</p>
-      <br>
-      <a href="search.cgi"><span class="glyphicon glyphicon-search homeIcons"></span></a>
+  <form role="form" method="post" class="form-horizontal" enctype="multipart/form-data" action="login.cgi">
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="author">*Username:</label>
+      <div class="col-sm-3">
+        <input type="username" name="username" class="form-control" id="username">
+      </div>
     </div>
-    <div class="col-sm-4 col-centered">
-      <p>Write a review</p>
-      <br>
-      <a href="submitreview.cgi"><span class="glyphicon glyphicon-pencil homeIcons"></span></a>
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="year">*Password:</label>
+      <div class="col-sm-3">
+        <input type="password" class="form-control" id="password" name="password">
+      </div>
     </div>
-    <div class="col-sm-4 col-centered">
-    <p>Browse the network</p>
-    <br>
-    <a href="#"><span <span class="glyphicon glyphicon-user homeIcons"></span></a>
+    <div class="form-group" >
+      <div class="col-sm-offset-2 col-sm-10">
+	<button type="submit" name="submit" value="submit" class="btn btn-default" id="submitbutton">Login</button>
+      </div>
+    </div>
+  </form>
+  
+  <div class="container-fluid page-content">
+    <h1>Wendies Abroad</h1>
+    <p>A study abroad network for students at Wellesley College</p>
+    <div class="row row-centered">
+      <div class="col-sm-4 col-centered">
+	<p>Search the database</p>
+	<br>
+	<a href="search.cgi"><span class="glyphicon glyphicon-search homeIcons"></span></a>
+      </div>
+      <div class="col-sm-4 col-centered">
+	<p>Write a review</p>
+	<br>
+	<a href="submitreview.cgi"><span class="glyphicon glyphicon-pencil homeIcons"></span></a>
+      </div>
+      <div class="col-sm-4 col-centered">
+	<p>Browse the network</p>
+	<br>
+	<a href="#"><span <span class="glyphicon glyphicon-user homeIcons"></span></a>
+			  </div>
     </div>
   </div>
-</div>
-
+  
 </body>
 </html>
