@@ -31,6 +31,8 @@ def main(pid):
         output = open(my_sess_dir+sess_data['sessid'],'w+')
         pickle.dump(sess_data,output,-1)
         output.close()
+    else: 
+        print "Welcome back!"
         
 if __name__ == '__main__':
     main(pid)

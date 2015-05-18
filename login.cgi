@@ -29,7 +29,7 @@ def validateUser():
         username = form_data.getfirst('username')
 	
         if validPassword(username,pword):
-            # print 'true'
+            print 'true'
             session.main(2) #need to grab pid
     else:
         print "Please enter both username and password"
@@ -60,8 +60,9 @@ def validPassword(username,password):
         print "incorrect password"
  
 if __name__ == '__main__':
-    validateUser()
     print "Content-Type: text/html\n"
+    validateUser()
     tmpl = file_contents('home.html')
     print tmpl
+    print 'hello'
     
