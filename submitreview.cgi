@@ -8,6 +8,7 @@ import cgi_utils_sda
 import imageUpload
 from subprocess import call
 from cgi_utils_sda import file_contents,print_headers
+import session
 
 # gets the data that the user entered into the form and processes it
 def submitReview():
@@ -87,6 +88,7 @@ def main():
 # main method to perform data processing and print html template
 if __name__== '__main__':
    print "Content-Type: text/html\n"
+   session.checkExistingSession()
    submitReview()
    main()
 

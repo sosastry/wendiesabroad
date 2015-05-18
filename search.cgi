@@ -6,6 +6,7 @@ import MySQLdb
 import connSetup
 import cgi_utils_sda
 from cgi_utils_sda import file_contents,print_headers
+import session
 
 # gets the data that the user entered into the form and processes it
 # searches the database based on search type
@@ -83,6 +84,7 @@ def main():
 # main method to perform data processing and print html template
 if __name__== '__main__':
    print "Content-Type: text/html\n"
+   session.checkExistingSession()
    getSearchQuery() 
 
 
