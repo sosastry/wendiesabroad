@@ -22,16 +22,18 @@ from cgi_utils_sda import file_contents,print_headers
  
 #Validate username and password
 def validateUser(form_data):
-    print form_data
-
-    if ('username' in form_data) and ('password' in form_data):
-        pword = form_data.getfirst('password')
-        username = form_data.getfirst('username')
+    #print "Form data: ",form_data
+    username = form_data.getfirst('username')
+    password = form_data.getfirst('password')
+    #print "Username: ",username
+    #print "Password: ", password
+    if (username != '') and (password != ''):
 	
-        if validPassword(username,pword):
+        if validPassword(username,password):
             session.createSession(username)
     else:
         print "Please enter both username and password"
+        printTmpl()
 
 def validPassword(username,password):     
     conn = connSetup.connect(connSetup.dsn)
@@ -41,30 +43,34 @@ def validPassword(username,password):
     curs.execute('select * from creds where username=%s',data)
     row = curs.fetchone()
     
-    #retrieve the salt from the database instead
-    salt = uuid.uuid4().hex
-    hashed_password=hashlib.sha512(password+salt).hexdigest()
     if row is None:
-        print "Please enter valid username"
+        print "Please enter a  valid username and password"
+        printTmpl()
         return False
-    
+
+    #retrieve the salt from the database
+    salt = row['salt']
+    hashed_password=hashlib.sha512(password+salt).hexdigest()
     databasePwd = row['password']
 
     databasePwd = hashlib.sha512(databasePwd+salt).hexdigest()
     
     if (hashed_password == databasePwd):
-        print 'Thanks! Hello world!'
         return True
     else:
-        print "incorrect password"
- 
+        print "Please enter a valid username and password"
+        printTmpl()
+
+def printTmpl():
+    tmpl = file_contents('login.html')
+    print tmpl
+
 if __name__ == '__main__':
     print "Content-Type: text/html\n"
     form_data = cgi.FieldStorage()
-    tmpl = file_contents('login.html')
-
+    
     if (form_data.getvalue('submit')):
        validateUser(form_data)       
-
-    print tmpl
+    else:
+        printTmpl()
     
