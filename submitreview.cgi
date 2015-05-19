@@ -10,6 +10,7 @@ from subprocess import call
 from cgi_utils_sda import file_contents,print_headers
 import session
 import logText
+import ast
 
 loginButton = False
 
@@ -29,10 +30,7 @@ def submitReview():
 
       fileitem = form_data['photo']
 
-      print "YOASLFNKLSKNF"
       imgString = "/images/1.jpg"
-      print call(["file","--mime-type",imgString])
-      #print call(["file","--mime-type",fileitem.filename])
 
       if (reviewComplete(reviewData)): #confirms that all fields are filled out
           rid = insertReview(connSetup.connect(connSetup.dsn),reviewData)
@@ -45,13 +43,15 @@ def submitReview():
 # inserts data into review table
 def insertReview(conn,reviewData):
   curs = conn.cursor(MySQLdb.cursors.DictCursor)
-  data= (reviewData[5],reviewData[1],reviewData[5],reviewData[0],reviewData[3],reviewData[2],)
+
+  author = ast.literal_eval(reviewData[5]) #converts string back to dictionary
+  name = author['name']
+  pid = author['pid']
+  data= (pid,reviewData[1],name,reviewData[0],reviewData[3],reviewData[2],)
   curs.execute('insert into review(pid,uid,name,title,reviewText,rating) values (%s,%s,%s,%s,%s,%s)',data)
 
   curs.execute('select last_insert_id()')
   rid = curs.fetchone()['last_insert_id()']
-  print 'insert review row id: ',rid 
-
   return rid
 
 # tests whether user has entered in all fields in a review
@@ -63,21 +63,32 @@ def reviewComplete(list):
 
 #gets list of users from database
 def getUsers():
+    global username
+    valList = {}
+    
+    userExist ='<select class="form-control" id="sel1" name="author"><option value="{valList}">{name}</option></select>'
+    userFalse = '<input type="name" name="author" class="form-control" id="author">'
 
-    formatString = "<option value='{pid}'>{name}</option>"
     resultString = ""
     results = {}
     conn = connSetup.connect(connSetup.dsn)
     curs = conn.cursor(MySQLdb.cursors.DictCursor)
-    curs.execute('select * from user')
 
-    row = curs.fetchone()
-
-    while row is not None:
-        resultString += formatString.format(**row)
+    if (username == ""):
+        resultString = userFalse
+    else:
+        username = username.strip()
+        email = username + "@wellesley.edu"
+        data = (email,)
+        curs.execute('select * from user where email=%s',data)
         row = curs.fetchone()
-    
-    results['users'] = resultString
+
+        if row is not None:
+            valList['pid'] = row['pid']
+            valList['name']=row['name']
+            row['valList'] = valList
+            resultString = userExist.format(**row)
+    results['user'] = resultString
     return results
 
 
@@ -94,8 +105,10 @@ def main():
 if __name__== '__main__':
    print "Content-Type: text/html\n"
    global loginButton
+   global username
    session.checkExistingSession()
    loginButton = session.isLogin()
+   username = session.getUsername()
    submitReview()
    main()
 

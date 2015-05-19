@@ -92,8 +92,6 @@ def getDestFile(callFrom, pid, rid):
     locations['dest_url'] = DEST_URL + dirString
     locations['dirString'] = 'images/' + dirString
 
-    print locations
-
     return locations
 
 def store_data_in_filesystem_optimistic(pid,client_filename,file_data,rid, callFrom):

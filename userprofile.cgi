@@ -42,6 +42,7 @@ def getUserInfo():
         for r in userReviews:
             reviewString += revFormat.format(**r)
 
+        
         row['resultString'] = reviewString
         row['login'] = logText.loginFormat(loginButton)
 
