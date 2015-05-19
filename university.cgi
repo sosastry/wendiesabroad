@@ -7,6 +7,9 @@ import connSetup
 import cgi_utils_sda
 from cgi_utils_sda import file_contents,print_headers
 import session
+import logText
+
+loginButton = False
 
 # prints out the html template
 def main():
@@ -14,6 +17,7 @@ def main():
     return tmpl
 
 def getUniInfo():
+    global loginButton
     form_data=cgi.FieldStorage()
 
     if (form_data.getvalue('uni')):
@@ -70,6 +74,7 @@ def getUniInfo():
             reviewString += revFormat.format(**r)
 
         row['resultString'] = reviewString
+        row['login'] = logText.loginFormat(loginButton)
 
         tmpl = file_contents('university.html')
         print tmpl.format(**row)
@@ -77,5 +82,7 @@ def getUniInfo():
 # main method to perform data processing and print html template
 if __name__== '__main__':
    print "Content-Type: text/html\n"
+   global loginButton
    session.checkExistingSession()
+   loginButton = session.isLogin()
    getUniInfo()

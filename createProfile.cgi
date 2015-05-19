@@ -8,6 +8,9 @@ import cgi_utils_sda
 from cgi_utils_sda import file_contents,print_headers
 import imageUpload
 import session
+import logText
+
+loginButton = False
 
 # we will add login capabilities!
 # gets the data that the user entered into the form and processes it
@@ -65,14 +68,18 @@ def profileComplete(list):
 
 # prints out the html template
 def main():
+    global loginButton
+    data = {}
+    data['login'] = logText.loginFormat(loginButton)
     tmpl =  file_contents('createprofile.html')
-    return tmpl
+    return tmpl.format(**data)
 
 # main method to perform data processing and print html template
 if __name__== '__main__':
+   global loginButton
    print "Content-Type: text/html\n"
    session.checkExistingSession()
+   loginButton = session.isLogin()
    submitUser()
-   #print main()
 
 

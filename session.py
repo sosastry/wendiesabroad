@@ -20,25 +20,17 @@ import cgi_utils_sda
 # prints session header, so only header output, no debugging output
 
 my_sess_dir = 'sessions/'
+login = False
 
-def main():
-    my_sess_dir = 'sessions/'
-    print 'Content-type: text/html'
-    sess_data = cgi_utils_sda.session_start(my_sess_dir)
-    if sess_data['loggedIn'] == False: #new login
-        # print "logged in false"
-        # create new session file
-        sess_data['loggedIn']=True 
-        
-        output = open(my_sess_dir+sess_data['sessid'],'w+')
-        pickle.dump(sess_data,output,-1)
-        output.close()
-    else: 
-        print "Welcome back!"
+def isLogin():
+    global login
+    return login
 
 def checkExistingSession():
+    global login
     sess_data = cgi_utils_sda.session_start(my_sess_dir)
-    if sess_data['loggedIn'] == True: #new login
+    if sess_data['loggedIn'] == True: #already logged in
+        login = True
         print "Logged in: " + sess_data['username']
 
 #creates session for new login
@@ -52,12 +44,9 @@ def createSession(username):
         output = open(my_sess_dir+sess_data['sessid'],'w+')
         pickle.dump(sess_data,output,-1)
         output.close()
-        
+        login = True
         print "Welcome ",username,"!"
         
     else: 
         print "Welcome back ",username,"!"
-        
-if __name__ == '__main__':
-    main()
     

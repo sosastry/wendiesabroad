@@ -7,12 +7,17 @@ import connSetup
 import cgi_utils_sda
 from cgi_utils_sda import file_contents,print_headers
 import session
+import logText
+
+loginButton = False
 
 # gets the data that the user entered into the form and processes it
 # searches the database based on search type
 def getSearchQuery():
+    global loginButton
     form_data=cgi.FieldStorage()
     results = {}
+    results['login'] = logText.loginFormat(loginButton)
 
     # checks whether the script has been called using the submit button
     if (form_data.getvalue('submit')):
@@ -35,6 +40,7 @@ def getSearchQuery():
     	
 #searches the database based on a given query and search type
 def searchDatabase(conn,searchQuery,searchType):
+    global loginButton
     curs = conn.cursor(MySQLdb.cursors.DictCursor)
     searchQuery = '%' + searchQuery + '%'
     data=(searchQuery,)
@@ -74,6 +80,7 @@ def searchDatabase(conn,searchQuery,searchType):
                 resultString  += peopleFormat.format(**row)
                 row = curs.fetchone()
     result['results'] = resultString 
+    result['login'] = logText.loginFormat(loginButton)
     print main().format(**result)
 
 # prints out the html template
@@ -83,8 +90,10 @@ def main():
 
 # main method to perform data processing and print html template
 if __name__== '__main__':
+   global loginButton
    print "Content-Type: text/html\n"
    session.checkExistingSession()
+   loginButton = session.isLogin()
    getSearchQuery() 
 
 

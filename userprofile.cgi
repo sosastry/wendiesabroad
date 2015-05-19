@@ -7,13 +7,13 @@ import connSetup
 import cgi_utils_sda
 from cgi_utils_sda import file_contents,print_headers
 import session
+import logText
+
+loginButton = False
 
 # prints out the html template
-def main():
-    tmpl =  file_contents('userprofile.html')
-    return tmpl
-
 def getUserInfo():
+    global loginButton
     form_data=cgi.FieldStorage()
 
     if (form_data.getvalue('pid')):
@@ -43,12 +43,15 @@ def getUserInfo():
             reviewString += revFormat.format(**r)
 
         row['resultString'] = reviewString
+        row['login'] = logText.loginFormat(loginButton)
 
         tmpl = file_contents('userprofile.html')
         print tmpl.format(**row)
 
 # main method to perform data processing and print html template
 if __name__== '__main__':
+   global loginButton
    print "Content-Type: text/html\n"
    session.checkExistingSession()
+   loginButton = session.isLogin()
    getUserInfo()

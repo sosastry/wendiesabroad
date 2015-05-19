@@ -1,0 +1,10 @@
+ $(document).ready(function(){
+    $('input[type="radio"]').click(function(){
+      if($(this).attr("value")=="yes"){
+        $(".contactinfo").show();
+      }
+      if($(this).attr("value")=="no"){
+        $(".contactinfo").hide();
+      }
+    });
+  });

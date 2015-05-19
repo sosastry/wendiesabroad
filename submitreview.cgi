@@ -9,6 +9,9 @@ import imageUpload
 from subprocess import call
 from cgi_utils_sda import file_contents,print_headers
 import session
+import logText
+
+loginButton = False
 
 # gets the data that the user entered into the form and processes it
 def submitReview():
@@ -80,15 +83,19 @@ def getUsers():
 
 # prints out the html template
 def main():
+    global loginButton
     tmpl =  file_contents('writereview.html')
     #get list of users in user table
     users = getUsers()
+    users['login'] = logText.loginFormat(loginButton)
     print tmpl.format(**users)
 
 # main method to perform data processing and print html template
 if __name__== '__main__':
    print "Content-Type: text/html\n"
+   global loginButton
    session.checkExistingSession()
+   loginButton = session.isLogin()
    submitReview()
    main()
 
